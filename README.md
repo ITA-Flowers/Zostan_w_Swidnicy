@@ -8,7 +8,7 @@
 
 ### 1. [Opis](#opis)
 
-### 2. [Dokumentacja]()
+### 2. [Dokumentacja](https://github.com/ITA-Flowers/Zostan_w_Swidnicy/tree/masterdocs)
 
 ### 3. [Struktura repozytorium](#struktura-repozytorium)
 
@@ -16,7 +16,7 @@
 
 ## Opis
 
-> TODO: *add logotype image*
+[!swidnica_tf_vm_wallpaper](https://raw.githubusercontent.com/ITA-Flowers/Zostan_w_Swidnicy/master/assets/vm_wallpaper.png?token=GHSAT0AAAAAACIQZQGLOZVJMEILVMQ7IYPAZJO45LA)
 
 Platforma do ukierunkowania ścieżki rozwoju zawodowego, doboru odpowiedniej pracy oraz zapisów na kursy zawodowe organizowane przez lokalne przedsiębiorstwa dla mieszkańców miasta Świdnica i okolic.
 
