@@ -1,0 +1,8 @@
+# Blokady dostępu do zajętych plików
+**/*.lck
+
+# Zapisy dzienników
+**/*.log
+
+# Pamięć cache modułów Python
+**/__pycache__/
