@@ -1,6 +1,6 @@
 # #Zostań_w_Świdnicy
 
-*Platforma do ukierunkowania ścieżki rozwoju zawodowego, doboru odpowiedniej pracy oraz zapisów na kursy zawodowe organizowane przez lokalne przedsiębiorstwa dla mieszkańców miasta Świdnica i okolic. Opracowane podczas konkursu **HackYeah 2023**.*
+*Projekt opracowany podczas konkursu **HackYeah 2023**.*
 
 ---
 
@@ -8,7 +8,7 @@
 
 ### 1. [Opis](#opis)
 
-### 2. [Dokumentacja](https://github.com/ITA-Flowers/Zostan_w_Swidnicy/tree/masterdocs)
+### 2. [Dokumentacja](docs/)
 
 ### 3. [Struktura repozytorium](#struktura-repozytorium)
 
@@ -16,7 +16,7 @@
 
 ## Opis
 
-[!swidnica_tf_vm_wallpaper](https://raw.githubusercontent.com/ITA-Flowers/Zostan_w_Swidnicy/master/assets/vm_wallpaper.png?token=GHSAT0AAAAAACIQZQGLOZVJMEILVMQ7IYPAZJO45LA)
+![image](https://github.com/ITA-Flowers/Zostan_w_Swidnicy/assets/74451381/fa5577ca-f411-45d8-bf57-256f67b65ec3)
 
 Platforma do ukierunkowania ścieżki rozwoju zawodowego, doboru odpowiedniej pracy oraz zapisów na kursy zawodowe organizowane przez lokalne przedsiębiorstwa dla mieszkańców miasta Świdnica i okolic.
 
