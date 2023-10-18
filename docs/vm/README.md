@@ -4,11 +4,19 @@
 
 ---
 
+## Dostęp do maszyny
+
+### Archiwum maszyny wirtualnej zostało udostępnione za pośrednictwem *Google Drive* i jest dostępne [tutaj](https://drive.google.com/file/d/1aYN6eRXr4Byipn_RBwVYD7CFmiu-qfvy/view?usp=share_link).
+
+---
+
 ## System operacyjny
 
 System wybrany i wstępnie przygotowany: **Debian 12 *Bookworm***
 
 ![Image](https://github.com/ITA-Flowers/Zostan_w_Swidnicy/assets/74451381/90982acf-9d5d-4ed7-be11-356f2f88a68b)
+
+---
 
 ### Dane logowania
 
