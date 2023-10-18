@@ -1,5 +1,21 @@
 # Dokumentacja
 
+## Spis treści
+
+### 1. [Diagram struktury architektury](#diagram-struktury-architektury)
+
+### 2. [Komunikacja międzyusługowa](#komunikacja-międzyusługowa)
+
+### 3. [UML](uml/README.md)
+
+### 4. [Mikrousługi](services/README.md)
+
+### 5. [Maszyna wirtualna](vm/README.md)
+
+### 6. [Skrypty automatyzujące](tools/README.md)
+
+---
+
 ## Diagram struktury architektury
 
 ![swidnica](https://github.com/ITA-Flowers/Zostan_w_Swidnicy/assets/74451381/5f58b8aa-6e71-47b7-b39c-796efce6bc51)

@@ -1,6 +1,6 @@
 # #Zostań_w_Świdnicy
 
-*Projekt opracowany podczas konkursu **HackYeah 2023**.*
+## *Projekt opracowany podczas konkursu **HackYeah 2023**.*
 
 ---
 
@@ -8,9 +8,9 @@
 
 ### 1. [Opis](#opis)
 
-### 2. [Dokumentacja](docs/)
+### 2. [Struktura repozytorium](#struktura-repozytorium)
 
-### 3. [Struktura repozytorium](#struktura-repozytorium)
+### 3. [Dokumentacja](docs/README.md)
 
 ---
 
