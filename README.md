@@ -26,32 +26,25 @@ Platforma do ukierunkowania ścieżki rozwoju zawodowego, doboru odpowiedniej pr
 
 ``` text
 .
-├── assets                              /*!< obrazy, wykresy, diagramy */            
-├── docs                                /*!< dokumentacja */                
-└── software                            /*!< kod źródłowy aplikacji */       
+├── assets                          /*!< obrazy, wykresy, diagramy */            
+├── docs                            /*!< dokumentacja */
+├── vm                              /*!< maszyna wirtualna */                
+└── software                        /*!< kod źródłowy aplikacji */       
     ├── services                        /*!< mikrousługi */    
-    │   ├── api_gateway                 /*!< Usługa API_GATEWAY */    
-    │   │   ├── Dockerfile                  /*!< skrypt budujący obraz Docker'a */    
-    │   │   └── app                         /*!< kod źródłowy usługi */    
-    │   ├── client                      /*!< Usługa aplikacji klienckiej */    
-    │   │   ├── Dockerfile                  /*!< skrypt budujący obraz Docker'a */
-    │   │   └── app                         /*!< kod źródłowy usługi */
-    │   ├── db                          /*!< Usługa DB */
-    │   │   ├── Dockerfile                  /*!< skrypt budujący obraz Docker'a */
-    │   │   └── scripts                     /*!< skrypty inicjujące bazy danych */
-    │   ├── db_driver                   /*!< Usługa DB_DRIVER */
-    │   │   ├── Dockerfile                  /*!< skrypt budujący obraz Docker'a */
-    │   │   └── app                         /*!< kod źródłowy usługi */
-    │   ├── docker-compose.yml          /*!< skrypt agregujący obrazy Docker'a */
-    │   ├── employee                    /*!< Usługa EMPLOYEE */
-    │   │   ├── Dockerfile                  /*!< skrypt budujący obraz Docker'a*/
-    │   │   └── app                         /*!< kod źródłowy usługi */
-    │   ├── employer                    /*!< Usługa EMPLOYER */
-    │   │   ├── Dockerfile                  /*!< skrypt budujący obraz Docker'a */
-    │   │   └── app                         /*!< kod źródłowy usługi */
-    │   └── identity                    /*!< Usługa IDENTITY */
-    │       ├── Dockerfile                  /*!< skrypt budujący obraz Docker'a */
-    │       └── app                        /*!< kod źródłowy usługi */
-    ├── tools                       /*!< narzędzia i skrypty pomocnicze dla VM */
-    └── vm                          /*!< maszyna wirtualna, konfiguracje VM */
+    │   ├── api_gateway                     /*!< Usługa API_GATEWAY */    
+    │   │   └── app                             /*!< kod źródłowy usługi */    
+    │   ├── client                          /*!< Usługa aplikacji klienckiej */    
+    │   │   └── app                             /*!< kod źródłowy usługi */
+    │   ├── db                              /*!< Usługa DB */
+    │   │   └── scripts                         /*!< skrypty inicjujące bazy danych */
+    │   ├── db_driver                       /*!< Usługa DB_DRIVER */
+    │   │   └── app                             /*!< kod źródłowy usługi */
+    │   ├── employee                        /*!< Usługa EMPLOYEE */
+    │   │   └── app                             /*!< kod źródłowy usługi */
+    │   ├── employer                        /*!< Usługa EMPLOYER */
+    │   │   └── app                             /*!< kod źródłowy usługi */
+    │   └── identity                        /*!< Usługa IDENTITY */
+    │   │   └── app                            /*!< kod źródłowy usługi */
+    │   └── compose.yml                     /*!< skrypt budujący klaster Docker Compose */
+    └── tools                           /*!< narzędzia i skrypty pomocnicze dla VM */
 ```
