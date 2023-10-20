@@ -21,7 +21,7 @@ body {
     display: flex;
     flex-direction: column;
     margin: auto;
-    margin-top: 120px;
+    margin-top: 90px;
     background: #fff;
     padding-bottom: 30px;
     width: 80%;
@@ -63,8 +63,13 @@ body {
     margin: auto;
     background: #eaeaea;
     width: 80%;
-    height: 10vh;
+    height: 7vh;
     border-radius: 6px;
+}
+.checkbox-label {
+    display: flex;
+    align-items: center; /* Wyśrodkowanie w pionie */
+    justify-content: center; /* Wyśrodkowanie w poziomie */
 }
 
 .input img {
