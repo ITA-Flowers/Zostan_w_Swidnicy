@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  mariadb1:
+    image: mariadb:11.1
+    restart: always
+    container_name: maria
+    environment:
+      MARIADB_ROOT_PASSWORD: my-secret-pw
+      MARIADB_USER: my_user 
+      MARIADB_PASSWORD: my_password
+      MARIADB_DATABASE: swidnica
+    volumes:
+      - /srv/Swidnica/Zostan_w_Swidnicy/software/services/db/init.sql:/docker-entrypoint-initdb.d/init.sql # sciezka do pliku inicjujacego baze danych
+      - /tmp/db1:/var/lib/mysql
+    healthcheck:
+      test: mariadb -u my_user -pmy_password -h 127.0.0.1 
+      interval: 5s 
+      timeout: 2s
+      retries: 50
+      start_period: 10s
+      start_interval: 5s
