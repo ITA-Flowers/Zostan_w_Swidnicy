@@ -4,5 +4,10 @@
 # Zapisy dzienników
 **/*.log
 
+
+# Środowiska wirtualne Python
+**/.venv
+**/venv
+
 # Pamięć cache modułów Python
 **/__pycache__/
