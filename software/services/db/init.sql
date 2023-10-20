@@ -1,39 +1,101 @@
 USE swidnica;
 
-CREATE TABLE ip_addresses (
+CREATE TABLE User (
 
-    ip_address VARCHAR(15) PRIMARY KEY
+    Email VARCHAR(25) PRIMARY KEY,
+    Password VARCHAR(20),
+    PhoneNumber VARCHAR(9)
 	
 );
 
-CREATE TABLE login_time (
+CREATE TABLE Company (
 
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    ip_id VARCHAR(15) NOT NULL,
-    time INT NOT NULL DEFAULT 1,
-    FOREIGN KEY (ip_id) REFERENCES ip_addresses(ip_address)
+    Name VARCHAR(40) PRIMARY KEY,
+    Email VARCHAR(25),
+    NIP VARCHAR(16),
+    Password VARCHAR(20),
+    PhoneNumber VARCHAR(9)
 	
 );
 
-INSERT INTO ip_addresses (ip_address) VALUES
-    ('192.168.1.1'),
-    ('10.0.0.1'),
-    ('172.16.0.1'),
-    ('192.168.2.1'),
-    ('10.0.0.2'),
-    ('172.16.0.2');
+CREATE TABLE Courses (
+    Id int PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(20),
+    CompanyName VARCHAR(40),
+    Spaces INT,
+    Place VARCHAR(20),
+    FOREIGN KEY (CompanyName) REFERENCES Company(Name)
+	
+);
 
+CREATE TABLE JobOffers (
+    Id int PRIMARY KEY AUTO_INCREMENT,
+    Name VARCHAR(20),
+    CompanyName VARCHAR(40),
+    Description VARCHAR(200),
+    Place VARCHAR(20),
+    FOREIGN KEY (CompanyName) REFERENCES Company(Name)
+	
+);
 
-INSERT INTO login_time (ip_id, time) VALUES
-    ('192.168.1.1', 5),
-    ('10.0.0.1', 3),
-    ('172.16.0.1', 2),
-    ('192.168.2.1', 7),
-    ('10.0.0.2', 4),
-    ('172.16.0.2', 6),
-    ('192.168.1.1', 2),
-    ('10.0.0.1', 1),
-    ('172.16.0.1', 3);
+CREATE TABLE CV (
+    Id int PRIMARY KEY,
+    UserEmail VARCHAR(25),
+    Adress VARCHAR(30),
+    DateOfBirth DATE,
+    Name VARCHAR(15),
+    Surame VARCHAR(20),
+    FOREIGN KEY (UserEmail) REFERENCES User(Email)
+	
+);
+
+CREATE TABLE Skills (
+    CVId int,
+    UserEmail VARCHAR(25),
+    Skill VARCHAR(20),
+    FOREIGN KEY (UserEmail) REFERENCES User(Email),
+	FOREIGN KEY (CVId) REFERENCES CV(Id)
+);
+
+CREATE TABLE Education (
+    CVId int,
+    UserEmail VARCHAR(25),
+    School VARCHAR(40),
+    Begin DATE,
+    End DATE,
+    FOREIGN KEY (UserEmail) REFERENCES User(Email),
+	FOREIGN KEY (CVId) REFERENCES CV(Id)
+);
+
+CREATE TABLE Experience (
+    CVId int,
+    UserEmail VARCHAR(25),
+    Company VARCHAR(40),
+    Begin DATE,
+    End DATE,
+    FOREIGN KEY (UserEmail) REFERENCES User(Email),
+	FOREIGN KEY (CVId) REFERENCES CV(Id)
+);
+
+CREATE TABLE CourseAplicants (
+    UserEmail VARCHAR(25),
+    CourseId int,
+    FOREIGN KEY (UserEmail) REFERENCES User(Email),
+	FOREIGN KEY (CourseId) REFERENCES Courses(Id)
+);
+
+CREATE TABLE SkillsToLearn (
+    CourseId int,
+    Skill VARCHAR(20),
+	FOREIGN KEY (CourseId) REFERENCES Courses(Id)
+);
+
+CREATE TABLE JobAplicants (
+    UserEmail VARCHAR(25),
+    JobOfferId int,
+    FOREIGN KEY (UserEmail) REFERENCES User(Email),
+	FOREIGN KEY (JobOfferId) REFERENCES JobOffers(Id)
+);
 
 CREATE USER 'exampleuser'@'%';
 SET PASSWORD FOR 'exampleuser'@'%' = PASSWORD('my_cool_secret');	
