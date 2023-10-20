@@ -89,7 +89,10 @@ body {
     color: var(--active-color);
     text-decoration-line: underline;
 }
-
+.errors{
+    text-align: center;
+    color: red;
+}
 .submit-container{
     display: flex;
     gap: 1.875rem;
