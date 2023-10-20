@@ -11,7 +11,7 @@ services:
       MARIADB_PASSWORD: my_password
       MARIADB_DATABASE: swidnica
     volumes:
-      - /mnt/c/Users/Komp-Mag/Desktop/swidnica/mariadb/finish/tables/init.sql:/docker-entrypoint-initdb.d/init.sql # sciezka do pliku inicjujacego baze danych
+      - /srv/Swidnica/Zostan_w_Swidnicy/software/services/db/init.sql:/docker-entrypoint-initdb.d/init.sql # sciezka do pliku inicjujacego baze danych
       - /tmp/db1:/var/lib/mysql
     healthcheck:
       test: mariadb -u my_user -pmy_password -h 127.0.0.1 
