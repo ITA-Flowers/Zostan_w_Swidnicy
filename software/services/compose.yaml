@@ -20,3 +20,43 @@ services:
       retries: 50
       start_period: 10s
       start_interval: 5s
+  api_gateway:
+    build:
+      context: ./api_gateway
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      mariadb1:
+        condition: service_healthy
+  db_driver:
+    build:
+      context: ./db_driver
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      mariadb1:
+        condition: service_healthy
+  employee:
+    build:
+      context: ./employee
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      mariadb1:
+        condition: service_healthy
+  employer:
+    build:
+      context: ./employer
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      mariadb1:
+        condition: service_healthy
+  identity:
+    build:
+      context: ./identity
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      mariadb1:
+        condition: service_healthy
