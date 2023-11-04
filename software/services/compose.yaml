@@ -24,7 +24,11 @@ services:
     build:
       context: ./api_gateway
       dockerfile: Dockerfile
+    stdin_open: true
+    tty: true 
     restart: always
+    ports:
+      -"9020:8080"
     depends_on:
       mariadb1:
         condition: service_healthy
@@ -33,6 +37,8 @@ services:
       context: ./db_driver
       dockerfile: Dockerfile
     restart: always
+    ports:
+      -"9041:8080"
     depends_on:
       mariadb1:
         condition: service_healthy
@@ -41,6 +47,8 @@ services:
       context: ./employee
       dockerfile: Dockerfile
     restart: always
+    ports:
+      -"9032:8080"
     depends_on:
       mariadb1:
         condition: service_healthy
@@ -49,6 +57,8 @@ services:
       context: ./employer
       dockerfile: Dockerfile
     restart: always
+    ports:
+      -"9033:8080"
     depends_on:
       mariadb1:
         condition: service_healthy
@@ -57,6 +67,8 @@ services:
       context: ./identity
       dockerfile: Dockerfile
     restart: always
+    ports:
+      -"9031:8080"
     depends_on:
       mariadb1:
         condition: service_healthy
