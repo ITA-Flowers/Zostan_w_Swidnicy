@@ -1,9 +1,11 @@
+# Konfiguracja VSCode
+**/.vscode
+
 # Blokady dostępu do zajętych plików
 **/*.lck
 
 # Zapisy dzienników
 **/*.log
-
 
 # Środowiska wirtualne Python
 **/.venv
@@ -11,3 +13,9 @@
 
 # Pamięć cache modułów Python
 **/__pycache__/
+
+# Pamięć bazy danych
+**/db/vol
+
+# Sesje SQL
+**/*.session.sql
