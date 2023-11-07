@@ -4,7 +4,7 @@
 
 ---
 
-## Content
+## Spis treści
 
 ### 1. [Model bazy danych](#1-model-bazy-danych)
 
