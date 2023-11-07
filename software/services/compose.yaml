@@ -20,55 +20,70 @@ services:
       retries: 50
       start_period: 10s
       start_interval: 5s
+
   api_gateway:
     build:
       context: ./api_gateway
       dockerfile: Dockerfile
-    stdin_open: true
-    tty: true 
     restart: always
     ports:
-      -"9020:8080"
+      - 9020:8080
     depends_on:
       mariadb1:
         condition: service_healthy
+
   db_driver:
     build:
       context: ./db_driver
       dockerfile: Dockerfile
     restart: always
     ports:
-      -"9041:8080"
+      - 9041:8080
     depends_on:
       mariadb1:
         condition: service_healthy
+
   employee:
     build:
       context: ./employee
       dockerfile: Dockerfile
     restart: always
     ports:
-      -"9032:8080"
+      - 9032:8080
     depends_on:
       mariadb1:
         condition: service_healthy
+
   employer:
     build:
       context: ./employer
       dockerfile: Dockerfile
     restart: always
     ports:
-      -"9033:8080"
+      - 9033:8080
     depends_on:
       mariadb1:
         condition: service_healthy
+        
   identity:
     build:
       context: ./identity
       dockerfile: Dockerfile
     restart: always
     ports:
-      -"9031:8080"
+      - 9031:8080
+    depends_on:
+      mariadb1:
+        condition: service_healthy
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 80:5173
+      - 443:5173
     depends_on:
       mariadb1:
         condition: service_healthy
