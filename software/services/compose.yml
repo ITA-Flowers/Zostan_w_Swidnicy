@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+
+  maria:
+    image: mariadb:11.1
+    restart: always
+    container_name: maria
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+    volumes:
+      - ./db/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/scripts/populate.sql:/docker-entrypoint-initdb.d/populate.sql
+      - ./db/vol:/var/lib/mysql
+    ports:
+      - 9050:3306
+    healthcheck:
+      test: mariadb -u ${MARIADB_USER} -p${MARIADB_PASSWORD} -h maria
+      interval: 30s
+      timeout: 10s
+      retries: 30
+      start_period: 30s
+
+  db_driver:
+    build:
+      context: ./db_driver
+      dockerfile: Dockerfile
+    restart: always
+    container_name: db_driver
+    ports:
+      - 9041:8080
+    depends_on:
+      maria:
+        condition: service_healthy
+    healthcheck:
+      test: pgrep uvicorn || exit 1
+      interval: 30s
+      timeout: 3s
+      retries: 5
+      start_period: 20s
+
+
+  identity:
+    build:
+      context: ./identity
+      dockerfile: Dockerfile
+    restart: always
+    container_name: identity
+    ports:
+      - 9031:8080
+    depends_on:
+      db_driver:
+        condition: service_healthy
+    healthcheck:
+      test: pgrep uvicorn || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
