@@ -1,3 +1,16 @@
-# Service consts
+import os
+
+# Server
 HOST : str = "0.0.0.0"
 PORT : int = 8080
+
+# Auth
+try:
+    SECRET_KEY = os.getenv('AUTH_SECRET_KEY')
+    ALGORITHM = os.getenv('AUTH_ALGHORITHM')
+    ACCESS_TOKEN_EXPIRES_MINUTES = int(os.getenv('AUTH_ACCESS_TOKEN_EXPIRES_MINUTES'))
+
+except TypeError as why:
+    ALGHORITHM = "HSA512"
+    SECRET_KEY = "0995d4c407a222108d785d04ea518d5465498f3df0dfac7f78dc40a3086f0ad4"
+    ACCESS_TOKEN_EXPIRES_MINUTES = 30

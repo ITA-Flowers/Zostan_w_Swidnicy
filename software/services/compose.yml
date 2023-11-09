@@ -22,7 +22,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 30
-      start_period: 30s
+      start_period: 15s
 
   db_driver:
     build:
@@ -35,12 +35,6 @@ services:
     depends_on:
       maria:
         condition: service_healthy
-    healthcheck:
-      test: pgrep uvicorn || exit 1
-      interval: 30s
-      timeout: 3s
-      retries: 5
-      start_period: 20s
 
 
   identity:
@@ -52,11 +46,5 @@ services:
     ports:
       - 9031:8080
     depends_on:
-      db_driver:
+      maria:
         condition: service_healthy
-    healthcheck:
-      test: pgrep uvicorn || exit 1
-      interval: 30s
-      timeout: 5s
-      retries: 5
-      start_period: 20s

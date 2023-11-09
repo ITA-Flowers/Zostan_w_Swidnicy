@@ -1,1 +1,1 @@
-from .route import router as register_router
+from .route import router
