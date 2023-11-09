@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 from api.models import RegisterRequestModel, ResponseModel, ErrorResponseModel, create_response, create_error_response
 
 router = APIRouter(
-    tags=["Identity"],
+    tags=["Register"],
     prefix="/api/identity/register",
     responses={
         409 : {
