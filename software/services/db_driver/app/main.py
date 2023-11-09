@@ -1,3 +1,4 @@
+from api.conf import HOST, PORT
 from api import init_api
 
 # Inicjalizacja aplikacji FastAPI
