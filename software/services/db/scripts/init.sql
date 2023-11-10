@@ -31,7 +31,7 @@ CREATE TABLE `UsersExperience`(
 	`FK_reportId` INT UNSIGNED NOT NULL,
 	`companyName` VARCHAR(80) NOT NULL COMMENT 'Company''s name',
 	`position` VARCHAR(80) NOT NULL COMMENT 'Job position',
-	lokalization VARCHAR(255),
+	localization VARCHAR(255),
 	`isCurrent` BOOLEAN NOT NULL COMMENT 'is employee still working there',
 	`beginDate` DATE NOT NULL COMMENT 'Work''s date of beginning',
 	`endDate` DATE COMMENT 'Work''s date of end',

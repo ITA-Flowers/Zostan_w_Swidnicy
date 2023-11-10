@@ -15,7 +15,7 @@ VERSION = "1.0.0"
 TAGS_METADATA = [    
     {
         "name" : "Users",
-        "description" : "."
+        "description" : "Obsługa użytkowników"
     },
     {
         "name" : "Companies",

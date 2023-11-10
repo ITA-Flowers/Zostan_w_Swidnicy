@@ -6,7 +6,7 @@ PORT : int = 8080
 
 # Database
 DATABASE_HOST = "maria"
-DATABASE_PORT = 9050
+DATABASE_PORT = 3306
 
 def get_db_creds() -> tuple((str, str, str)):
     db_user     = os.getenv('MARIADB_USER')
@@ -21,8 +21,12 @@ def get_db_creds() -> tuple((str, str, str)):
 try:
     DATABASE_USER, DATABASE_PASSWORD, DATABASE_NAME = get_db_creds()
 except Exception as why:
-    raise RuntimeError(str(why))
+    # raise RuntimeError(str(why))
+    print(str(why))
+    DATABASE_USER       = "my-user"
+    DATABASE_PASSWORD   = "my-secret-pw"
+    DATABASE_NAME       = "swidnica"
+    DATABASE_URL = f"mysql+pymysql://{DATABASE_USER}:{DATABASE_PASSWORD}@{DATABASE_HOST}:{DATABASE_PORT}/{DATABASE_NAME}"
 else:
     DATABASE_URL = f"mysql+pymysql://{DATABASE_USER}:{DATABASE_PASSWORD}@{DATABASE_HOST}:{DATABASE_PORT}/{DATABASE_NAME}"
-    print(DATABASE_URL)
     

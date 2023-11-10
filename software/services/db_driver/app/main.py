@@ -1,5 +1,5 @@
 from api import init_api
-from database import engine, SessionLocal
+
 
 app = init_api()
 

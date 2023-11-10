@@ -18,8 +18,8 @@ class User(Base):
     
     uuid = Column(UUID(as_uuid=True), primary_key=True, server_default=text("UUID()"), comment='Auto-generated Unique User ID')
     email = Column(String(80), nullable=False, unique=True, comment="User's e-mail address")
-    password_hash = Column(String(255), nullable=False, comment="Hash of user's password")
-    phone_number = Column(String(20), nullable=True, comment="User's phone number")
+    passwordHash = Column(String(255), nullable=False, comment="Hash of user's password")
+    phoneNumber = Column(String(20), nullable=True, comment="User's phone number")
     name = Column(String(40), nullable=True, comment="User's name")
     surname = Column(String(60), nullable=True, comment="User's surname")
     
@@ -34,7 +34,7 @@ class Report(Base):
     id = Column(INTEGER, primary_key=True, autoincrement=True)
     FK_userUUID = Column(UUID(as_uuid=True), ForeignKey('Users.uuid'), nullable=False)
     address = Column(String(255), nullable=False, comment='Address')
-    date_of_birth = Column(Date, nullable=False, comment="User's date of birth")
+    dateOfBirth = Column(Date, nullable=False, comment="User's date of birth")
     
     user_skills = relationship('UserSkill', backref='report', cascade="all, delete-orphan")
     user_experience = relationship('UserExperience', backref='report', cascade="all, delete-orphan")
@@ -55,12 +55,12 @@ class UserExperience(Base):
     id = Column(INTEGER, primary_key=True, autoincrement=True)
     FK_jobFormId = Column(INTEGER, ForeignKey('JobForms.id'), nullable=False)
     FK_reportId = Column(INTEGER, ForeignKey('Reports.id'), nullable=False)
-    company_name = Column(String(80), nullable=False, comment="Company's name")
+    companyName = Column(String(80), nullable=False, comment="Company's name")
     position = Column(String(80), nullable=False, comment="Job position")
     localization = Column(String(255), nullable=True)
-    is_current = Column(Boolean, nullable=False, comment="Is employee still working there")
-    begin_date = Column(Date, nullable=False, comment="Work's date of beginning")
-    end_date = Column(Date, nullable=True, comment="Work's date of end")
+    isCurrent = Column(Boolean, nullable=False, comment="Is employee still working there")
+    beginDate = Column(Date, nullable=False, comment="Work's date of beginning")
+    endDate = Column(Date, nullable=True, comment="Work's date of end")
     
     
 class UserEducation(Base):
@@ -71,9 +71,9 @@ class UserEducation(Base):
     level = Column(Enum('primary', 'secondary', 'higher', 'bachelor', 'master', 'doctorate', 'vocational', 'continuing'), nullable=False, comment='Education level')
     school = Column(String(255), nullable=False, comment='Finished school name')
     specialization = Column(String(80), nullable=True, comment='Specialization')
-    is_current = Column(Boolean, nullable=False, comment="Is user still studying there")
-    begin_date = Column(Date, nullable=False, comment="Education's date of beginning")
-    end_date = Column(Date, nullable=True, comment="Education's date of end")
+    isCurrent = Column(Boolean, nullable=False, comment="Is user still studying there")
+    beginDate = Column(Date, nullable=False, comment="Education's date of beginning")
+    endDate = Column(Date, nullable=True, comment="Education's date of end")
     
 
 class Course(Base):
@@ -83,7 +83,7 @@ class Course(Base):
     FK_companyNip = Column(String(13), ForeignKey('Companies.nip'), nullable=False)
     name = Column(String(255), nullable=False, comment="Course's name")
     places = Column(INTEGER, nullable=False, comment='Available places')
-    is_online = Column(Boolean, nullable=False, comment='Is it course online')
+    isOnline = Column(Boolean, nullable=False, comment='Is it course online')
     
     skills_to_learn = relationship('SkillToLearn', backref='course', cascade="all, delete-orphan")
     course_participants = relationship('CourseParticipant', backref='course', cascade="all, delete-orphan")
@@ -131,7 +131,7 @@ class JobOffer(Base):
     FK_jobFormId = Column(INTEGER(unsigned=True), ForeignKey('JobForms.id'), nullable=False)
     FK_companyNip = Column(String(13), ForeignKey('Companies.nip'), nullable=False)
     name = Column(String(255), nullable=False, comment="Job's name")
-    is_online = Column(Boolean, nullable=False, comment='Is it remote job')
+    isOnline = Column(Boolean, nullable=False, comment='Is it remote job')
     
     job_applicants = relationship('JobApplicant', backref='job_offer', cascade="all, delete-orphan")
 
@@ -143,8 +143,8 @@ class Company(Base):
     FK_categoryId = Column(INTEGER(unsigned=True), ForeignKey('CategoriesOfCompany.id'), nullable=True)
     name = Column(String(80), nullable=False, comment="Company's name")
     email = Column(String(80), nullable=False, comment="Company's e-mail address")
-    password_hash = Column(String(255), nullable=False, comment="Hash of company's password")
-    phone_number = Column(String(20), nullable=True, comment="Company's phone number")
+    passwordHash = Column(String(255), nullable=False, comment="Hash of company's password")
+    phoneNumber = Column(String(20), nullable=True, comment="Company's phone number")
     
     courses = relationship('Course', backref='company', cascade="all, delete-orphan")
     job_offers = relationship('JobOffer', backref='company', cascade="all, delete-orphan")
