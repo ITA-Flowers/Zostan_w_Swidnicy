@@ -30,6 +30,6 @@ class PasswordChangeRequestModel(BaseModel):
 class RegisterRequestModel(BaseModel):
     email           : str = Field(..., description="User's email",          example="user@mailbox.com")
     password        : str = Field(..., description="User's password",       example="Password1")
-    phone_number    : str = Field(..., description="User's phone number",   example="+48524665997")
+    phone_number    : str | None = Field(..., description="User's phone number",   example="+48524665997")
     name            : str | None = Field(..., description="User's name",    example="John")
     surname         : str | None = Field(..., description="User's surname", example="Doe")

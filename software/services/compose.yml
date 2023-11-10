@@ -30,6 +30,10 @@ services:
       dockerfile: Dockerfile
     restart: always
     container_name: db_driver
+    environment:
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
     ports:
       - 9041:8080
     depends_on:

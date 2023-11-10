@@ -109,7 +109,7 @@ CREATE TABLE `Companies`(
 
 CREATE TABLE `CategoriesOfCompany`(
 id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	category VARCHAR(40) NOT NULL COMMENT 'Company''s category', PRIMARY KEY(id)
+	`name` VARCHAR(40) NOT NULL COMMENT 'Company''s category', PRIMARY KEY(id)
 ) COMMENT 'Possible companies'' categories';
 
 CREATE TABLE `JobForms`(
