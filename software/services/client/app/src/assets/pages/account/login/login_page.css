@@ -11,9 +11,9 @@
 body {
     margin: 0;
     height: 100vh;
-    background: rgb(255, 247, 247);
+    /* background: rgb(255, 247, 247); */
     background: linear-gradient(360deg, rgba(255, 247, 247, 1) 0%, rgba(31, 27, 99, 1) 0%, rgba(2, 83, 99, 1) 100%, rgba(232, 232, 232, 1) 100%);
-    font-family: 'Gabarito', sans-serif;
+    /* font-family: 'Gabarito', sans-serif; */
     font-family: 'Poppins', sans-serif;
 }
 
@@ -24,7 +24,7 @@ body {
     margin-top: 90px;
     background: #fff;
     padding-bottom: 30px;
-    width: 80%;
+    width: 65%;
     border-radius: 5px;
 }
 
@@ -82,6 +82,7 @@ body {
     outline: none;
     color: #797979;
     font-size: .8rem;
+    width: 70%;
 }
 
 .forgot-password {
