@@ -51,9 +51,29 @@ export default function Login() {
     
                
                 resetForm();
+                // idzie rejestracja dalej
             } else {
                 // Wywołaj to tylko, gdy są błędy
                 
+            }
+        }
+    };
+
+    const handleSubmit_LogIn = async (e) => {
+        e.preventDefault();
+    
+        if (action === "Zarejestruj się") {
+            setActionAndResetForm("Zaloguj się");
+        } else {
+            const loginErrors = validateLogin(formValues);
+            
+            setFormErrors(loginErrors);
+            if (Object.keys(loginErrors).length === 0 && loginErrors === 1) {
+                resetForm();
+                console.log("TU BEDZIE API NA MAILA")
+            }  else if (Object.keys(loginErrors).length === 0 && loginErrors === 2) {
+                resetForm();
+                console.log("TU BEDZIE API NA NIP")
             }
         }
     };
@@ -65,12 +85,15 @@ export default function Login() {
         
         if (!emailRegex.test(values.email)) {
             errors.email = "Sprawdz czy poprawnie wprowadziles maila"
-        }
+        } 
         if (!passwordRegex.test(values.password)) {
             errors.password = "Hasło musi zawierać conajmniej 1 wielką literę oraz cyfrę"
         }
         if (values.password !== values.confirm_password) {
             errors.confirm_password = "Hasła nie są identyczne"
+        }
+        if (values.password.length < 7) {
+            errors.password = "Hasło jest za krótkie"
         }
         if (!values.email || !values.password || !values.confirm_password ) {
             
@@ -85,6 +108,28 @@ export default function Login() {
 
     }
 
+    const validateLogin = (values) => {
+        const errors = {};
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        const nipRegex = /^\d{10}$/;
+        // TODO: dodac walidacje jak mail ani regex nie wchodzi , dac walidaje w osobne funkcje aby byl kurwa do nich jakis dostep xddd
+        
+        if (!values.email || !values.password) {
+            errors.email = "Uzupełnij wszystkie pola";
+            // wszedl NIP ale nie wszedl mail
+        
+        } else if (!nipRegex.test(values.email) && !emailRegex.test(values.email)) {
+            errors.email = "Wprowadz poprawne dane (mail lub NIP)"
+        
+        } else if (nipRegex.test(values.email) && !emailRegex.test(values.email)) {
+            return 2
+        
+        } else if (!nipRegex.test(values.email) && emailRegex.test(values.email)) {
+            return 1
+        } 
+    
+        return errors;
+    };
     
     // czyszczenie inputow
     const resetForm = () => {
@@ -117,9 +162,9 @@ export default function Login() {
                     onChange={handleChange} 
                     value={formValues.email} 
                     name='email' type="email" 
-                    placeholder='Podaj swój adres email' />
+                    placeholder='Podaj swój adres email lub NIP' />
                 </div>
-                {action === "Zarejestruj się" ? <p className='errors'>{formErrors.email}</p> : null}
+                 <p className='errors'>{formErrors.email}</p> 
                 <div className="input">
                     <img src={password_icon} alt="" />
                     <input 
@@ -129,7 +174,7 @@ export default function Login() {
                     type="password" 
                     placeholder='Podaj hasło' />
                 </div>
-                {action === "Zarejestruj się" ? <p className='errors'>{formErrors.password}</p> : null}
+                <p className='errors'>{formErrors.password}</p>
                 {action === "Zaloguj się" ? null : (
                     <div className="input">
                         <img src={password_icon} alt="" />
@@ -178,7 +223,7 @@ export default function Login() {
                 <div className={action === "Zaloguj się" ? "submit grey" : "submit"} onClick={ handleSubmit}>
                     Zarejestruj się
                 </div>
-                <div className={action === "Zarejestruj się" ? "submit grey" : "submit"} onClick={() => {setActionAndResetForm("Zaloguj się");}}>
+                <div className={action === "Zarejestruj się" ? "submit grey" : "submit"} onClick={handleSubmit_LogIn}>
                     Zaloguj się
                 </div>
             </div>

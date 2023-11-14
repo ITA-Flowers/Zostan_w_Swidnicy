@@ -1,0 +1,189 @@
+/* Responsywność dla małych ekranów */
+@media only screen and (max-width: 600px) {
+    .container-cv {
+      flex-direction: column; /* Zamień orientację flexboxa na kolumnę dla małych ekranów */
+    }
+  
+    .style-right img {
+      display: none; /* Ukryj obrazek na małych ekranach */
+    }
+  
+    .style-left {
+      max-width: 80%; /* Zwiększ szerokość dla tekstu na małych ekranach */
+      margin: 20px auto; /* Dodaj odstęp od góry na małych ekranach */
+    }
+  
+    .heading {
+      max-width: 100%; /* Zmniejsz maksymalną szerokość tekstu na małych ekranach */
+    }
+  }
+  
+  /* Pozostałe style */
+  :root {
+    --background-color: #0f172a;
+    --title-color: #ffffff;
+    --title-font-size: 1.5rem;
+    --active-color: #1d4ed8;
+    --hover-color: #172554;
+  }
+  
+  .container-cv {
+    width: 100%;
+    min-height: 95vh;
+    height: auto;
+    background-color: rgb(238, 252, 255);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+  
+  .heading {
+    margin: 0 auto;
+    max-width: 100%;
+    background-clip: text;
+    color: black;
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    line-height: 4.1rem;
+  }
+  
+  .heading span {
+    color: var(--active-color);
+  }
+  
+  .style-right img {
+    width: 350px;
+  }
+  .line{
+    width: 40%;
+    height: 5px;
+    background-color: var(--active-color);
+    border-radius: 20px;
+    margin:  10px auto;
+  }
+  .body{
+    background-color: rgb(238, 252, 255);
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding:30px ;
+    align-items: center;
+  }
+  /* Dodatkowe style dla małych ekranów mogą być dodane tu */
+  .heading-cv{
+    font-weight: bold;
+    font-size: 2.1rem;
+  }
+.input-cv{
+    background-color: white;
+    border: 1px solid var(--active-color);
+    border-radius: 20px;
+    width: 80%;
+    margin: 10px auto;
+    padding: 5px;
+}
+.input-cv input{
+    width: 90% ;
+    margin: 10px;
+    outline: none;
+    border: none;
+}
+.language-inputs {
+    display: flex;
+    width: 80%;
+    margin-bottom: 10px;
+    background-color: white;
+    border: 1px solid var(--active-color);
+    border-radius: 20px;
+
+  }
+  .language-inputs input{
+    width: 90% ;
+    margin: 10px;
+    outline: none;
+    border: none;
+  }
+  .work-experience-inputs {
+    background-color: white;
+    border: 1px solid var(--active-color);
+    width: 80%;
+    border-radius: 20px;
+  }
+  .work-experience-inputs input {
+    outline: none;
+    margin: 10px;
+    border: none;
+    
+  }
+  .work-experience-inputs label{
+    margin-left: 10px;
+  }
+  .education-inputs{
+    background-color: white;
+    border: 1px solid var(--active-color);
+    width: 80%;
+    border-radius: 20px;
+  }
+  .education-inputs input{
+    
+    outline: none;
+    margin: 10px;
+    border: none;
+    padding: 2px;
+  }
+  .education-inputs select{
+    outline: none;
+    border: none;
+    margin-left: 10px;
+    
+  }
+  .education-inputs label{
+    margin-left: 10px;
+  }
+  .certificate-inputs{
+    background-color: white;
+    border: 1px solid var(--active-color);
+    width: 80%;
+    border-radius: 20px;
+  }
+  .certificate-inputs input{
+    outline: none;
+    margin: 10px;
+    border: none;
+    padding: 2px;
+  }
+  .certificate-inputs label{
+    
+    margin: 10px;
+  
+  }
+  .link-inputs{
+    background-color: white;
+    border: 1px solid var(--active-color);
+    width: 80%;
+    border-radius: 20px;
+  }
+  .link-inputs input{
+    margin: 10px;
+    outline: none;
+    border: none;
+  }
+  button {
+    background-color: #1d4ed8;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 20px;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-thumb{
+    background-color: var(--active-color);
+    border-radius: 4px;
+  }
