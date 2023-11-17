@@ -65,14 +65,14 @@ class Experience(ExperienceBase):
 # -----------------------------------------------------------------
 # -- Education
 class EducationLevel(Enum):
-    PRIMARY     = 'primary'
-    SECONDARY   = 'secondary'
-    HIGHER      = 'higher'
-    BACHELOR    = 'bachelor'
-    MASTER      = 'master'
-    DOCTORATE   = 'doctorate'
-    VOCATIONAL  = 'vocational'
-    CONTINUING  = 'continuing'
+    PRIMARY     = 'Primary'
+    SECONDARY   = 'Secondary'
+    HIGHER      = 'Higher'
+    BACHELOR    = 'Bachelor'
+    MASTER      = 'Master'
+    DOCTORATE   = 'Doctorate'
+    VOCATIONAL  = 'Vocational'
+    CONTINUING  = 'Continuing'
     
 
 class EducationBase(BaseModel):
@@ -126,24 +126,11 @@ class UserBase(BaseModel):
     phone_number    : str | None = None
     name            : str | None = None
     surname         : str | None = None
-    
+
 
 class UserCreate(UserBase):
     password_hash   : str
     password_salt   : str
-    
-    class Config:
-        from_attributes = True
-        json_schema_extra = {
-            "example": {
-                "email": "j.doe@gmail.com",
-                "password_hash": "$2b$8MpO8TKre4VgAEwjfoglImF2sDpTTZScuIoQdXkX3jb9jrrawEnu/TdetciApBAVXJ41x1XW43/9QwnJfBoNrz9OabksRqsitFUOO1",
-                "password_salt": "$2b$8MpO8TKre4VgAEwjfog",
-                "phone_number": "521885446",
-                "name": "John",
-                "surname": "Doe"
-            }
-        }
 
 
 class UserUpdate(UserBase):
@@ -160,6 +147,7 @@ class UserUpdate(UserBase):
                 "surname": "Doe"
             }
         }
+        
         
 class User(UserBase):
     uuid : UUID
@@ -178,70 +166,3 @@ class User(UserBase):
                 "report": []
             }
         }
-
-
-# -----------------------------------------------------------------
-# -- JobOffer
-class JobOfferBase(BaseModel):
-    name : str
-    is_online : bool
-    
-    applicants : list[User] = []
-    
-
-class JobOfferCreate(JobOfferBase):
-    job_form : JobForm
-    
-
-class JobOffer(JobOfferBase):
-    id : int
-    
-    job_form_id : int
-    company_nip : str
-    
-    class Config:
-        from_attributes = True
-
-
-# -----------------------------------------------------------------
-# -- Course
-class CourseBase(BaseModel):
-    name        : str
-    places      : int
-    is_online   : bool
-    
-    paricipants     : list[User]  = []
-    skills_to_learn : list[Skill] = []
-    
-
-class CourseCreate(CourseBase):
-    pass
-    
-
-class Course(CourseBase):
-    id : int
-    
-    class Config:
-        from_attributes = True
-
-
-# -----------------------------------------------------------------
-# -- Company
-class CompanyBase(BaseModel):
-    nip             : str
-    name            : str
-    email           : str
-    phone_number    : str | None
-    
-    job_offers  : list[JobOffer] = []
-    courses     : list[Course]  = []
-    
-
-class CompanyCreate(CompanyBase):
-    password : str
-    
-
-class Company(CompanyBase):
-    
-    class Config:
-        from_attributes = True

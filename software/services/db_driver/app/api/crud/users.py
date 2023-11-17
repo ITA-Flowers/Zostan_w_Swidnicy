@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
 from uuid import UUID
 
-import api.models as models
-import api.schemas as schemas
+from .. import models
+from .. import schemas
 
 
 def get_user(db : Session, user_uuid : UUID):
@@ -18,17 +18,19 @@ def get_users(db : Session, skip : int = 0, limit : int = 100):
 
 
 def create_user(db : Session, user : schemas.UserCreate):
-    db_user = models.User(
+    new_user = models.User(
         email=user.email,
         passwordHash=user.password_hash,
+        passwordSalt=user.password_salt,
         phoneNumber=user.phone_number,
         name=user.name,
         surname=user.surname
     )
-    db.add(db_user)
+    
+    db.add(new_user)
     db.commit()
-    db.refresh(db_user)
-    return db_user
+    db.refresh(new_user)
+    return new_user
 
 
 def delete_user(db : Session, db_user : models.User):

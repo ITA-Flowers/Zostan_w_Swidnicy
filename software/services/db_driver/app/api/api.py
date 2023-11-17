@@ -18,7 +18,7 @@ def init_api() -> FastAPI:
         version=VERSION,
         openapi_tags=TAGS_METADATA
     )
-    
+        
     api.include_router(users_router)
     api.include_router(companies_router)
     api.include_router(reports_router)

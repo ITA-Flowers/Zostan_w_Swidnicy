@@ -1,1 +1,1 @@
-from .config import HOST, PORT, DATABASE_URL
+from .config import settings

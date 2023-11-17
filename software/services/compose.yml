@@ -19,10 +19,10 @@ services:
       - 9050:3306
     healthcheck:
       test: mariadb -u ${MARIADB_USER} -p${MARIADB_PASSWORD} -h maria
-      interval: 30s
+      interval: 20s
       timeout: 10s
-      retries: 30
-      start_period: 15s
+      retries: 5
+      start_period: 10s
 
   db_driver:
     build:
@@ -31,8 +31,8 @@ services:
     restart: always
     container_name: db_driver
     environment:
-      MARIADB_USER: ${MARIADB_USER}
-      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      MARIADB_SWIDNICA_USER: ${MARIADB_SWIDNICA_USER}
+      MARIADB_SWIDNICA_PASSWORD: ${MARIADB_SWIDNICA_PASSWORD}
       MARIADB_DATABASE: ${MARIADB_DATABASE}
     ports:
       - 9041:8080
@@ -40,13 +40,16 @@ services:
       maria:
         condition: service_healthy
 
-
   identity:
     build:
       context: ./identity
       dockerfile: Dockerfile
     restart: always
     container_name: identity
+    environment:
+      AUTH_ALGHORITHM: ${AUTH_ALGHORITHM}
+      AUTH_SECRET_KEY: ${AUTH_SECRET_KEY}
+      AUTH_ACCESS_TOKEN_EXPIRES_MINUTES: ${AUTH_ACCESS_TOKEN_EXPIRES_MINUTES}
     ports:
       - 9031:8080
     depends_on:

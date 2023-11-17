@@ -19,6 +19,7 @@ class User(Base):
     uuid = Column(UUID(as_uuid=True), primary_key=True, server_default=text("UUID()"), comment='Auto-generated Unique User ID')
     email = Column(String(80), nullable=False, unique=True, comment="User's e-mail address")
     passwordHash = Column(String(255), nullable=False, comment="Hash of user's password")
+    passwordSalt = Column(String(128), nullable=False, comment="Salt used to hash the password")
     phoneNumber = Column(String(20), nullable=True, comment="User's phone number")
     name = Column(String(40), nullable=True, comment="User's name")
     surname = Column(String(60), nullable=True, comment="User's surname")
@@ -140,7 +141,6 @@ class Company(Base):
     __tablename__ = 'Companies'
     
     nip = Column(String(13), primary_key=True, comment="Company's NIP number")
-    FK_categoryId = Column(INTEGER(unsigned=True), ForeignKey('CategoriesOfCompany.id'), nullable=True)
     name = Column(String(80), nullable=False, comment="Company's name")
     email = Column(String(80), nullable=False, comment="Company's e-mail address")
     passwordHash = Column(String(255), nullable=False, comment="Hash of company's password")
@@ -148,16 +148,6 @@ class Company(Base):
     
     courses = relationship('Course', backref='company', cascade="all, delete-orphan")
     job_offers = relationship('JobOffer', backref='company', cascade="all, delete-orphan")
-
-
-
-class CategoryOfCompany(Base):
-    __tablename__ = 'CategoriesOfCompany'
-    
-    id = Column(INTEGER(unsigned=True), primary_key=True, autoincrement=True)
-    name = Column(String(40), nullable=False, comment="Company's category")
-    
-    companies = relationship('Company', backref='category_of_company')
 
 
 class JobForm(Base):
