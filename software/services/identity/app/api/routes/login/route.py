@@ -1,33 +1,39 @@
 from fastapi import APIRouter, HTTPException, status, Body
-import bcrypt
 
-from api.models import LoginRequestModel, ResponseModel, ErrorResponseModel, create_response, create_error_response
+from api.models import LoginRequestModel, LogoutRequestModel
+
 
 router = APIRouter(
-    tags=["Identity"],
-    prefix="/api/identity/login",
-    responses={
-        501 : {
-            "description" : "Not Implemented Error",
-            "model" : ErrorResponseModel
-        }
-    }
+    tags=["Login"],
+    prefix="/api/identity",
 )
 
-@router.post(path='/user',
-             description="Uwierzytelnienie użytkownika",
-             response_model=ResponseModel)
+@router.post(path='/login/user',
+             description="Uwierzytelnienie użytkownika")
 def user_login(data : LoginRequestModel = Body(...)):
-    user_data = {
-        "email" : data.email,
-        "passwd_hash" : bcrypt.hashpw(data.password.encode(), bcrypt.gensalt()).decode(),
-    }
-    
     # TODO: DB Driver communication -> checkUserExistance
-    return create_error_response(
-            status=status.HTTP_501_NOT_IMPLEMENTED,
-            message="User authenticate operation not implemented yet",
-            detail="Not implemented yet!"
-    )
     
-    return create_response(status=status.HTTP_200_OK, message="User successfully authenticated.", data=user_data)
+    raise HTTPException(
+        status_code=status.HTTP_501_NOT_IMPLEMENTED,
+        detail="User login operation not implemented yet!"
+    )
+
+
+@router.post(path='/login/company',
+             description="Uwierzytelnienie przedsiębiorstwa")
+def company_login(data : LoginRequestModel = Body(...)):
+    # TODO: DB Driver communication -> checkUserExistance
+    
+    raise HTTPException(
+        status_code=status.HTTP_501_NOT_IMPLEMENTED,
+        detail="Company login operation not implemented yet!"
+    )
+
+
+@router.post(path='/logout',
+             description="Wylogowanie")
+def logout(data : LogoutRequestModel = Body(...)):
+    raise HTTPException(
+        status_code=status.HTTP_501_NOT_IMPLEMENTED,
+        detail="Logout operation not implemented yet!"
+    )

@@ -62,7 +62,7 @@ Odpowiedzi negatywne powinny zawierać trzy pola:
 ``` json
 {
     "code" : 409,
-    "message" : "Resource already exists."
+    "message" : "Resource already exists.",
     "error" : "This email address is already taken."
 }
 ```
