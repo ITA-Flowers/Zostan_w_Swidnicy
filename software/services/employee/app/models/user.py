@@ -1,7 +1,8 @@
 from pydantic import BaseModel
-from typing import Dict
+from models import cv
 
 class User(BaseModel):
     username : str
     email : str
     password : str
+    user_cv : cv
