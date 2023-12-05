@@ -423,6 +423,13 @@ const [links, setLinks] = useState([
       <button type="button" onClick={handleAddLink}>
         Dodaj link
       </button>
+      
+      <div className="under-line"></div>
+
+      <button type='button'>
+        Dodaj swoje cv
+
+      </button>
         </div>
         
     </div>
