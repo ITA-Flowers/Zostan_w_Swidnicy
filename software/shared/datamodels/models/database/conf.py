@@ -2,16 +2,10 @@ import os
 
 
 class Settings:
-    def __init__(self, 
-                 host       : str = "0.0.0.0", 
-                 port       : int = 8080, 
+    def __init__(self,
                  db_host    : str = "maria", 
                  db_port    : int = 3306,
-                 db_dialect : str = "mysql+pymysql") -> None:
-        
-        self.host = host
-        self.port = port
-        
+                 db_dialect : str = "mysql+pymysql") -> None:        
         self.db_host = db_host
         self.db_port = db_port
         self.db_dialect = db_dialect

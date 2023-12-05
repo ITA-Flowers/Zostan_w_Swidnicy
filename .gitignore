@@ -1,6 +1,9 @@
 # Konfiguracja VSCode
 **/.vscode
 
+# Konfiguracja Jetbrains IDE
+**/.idea
+
 # Blokady dostępu do zajętych plików
 **/*.lck
 
@@ -19,3 +22,9 @@
 
 # Sesje SQL
 **/*.session.sql
+
+# Stare pliki
+**/.old
+
+# Projekt bazy danych DataGrip
+**/dg_proj
