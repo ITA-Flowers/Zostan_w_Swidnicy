@@ -96,8 +96,8 @@ services:
       context: ./services/client
       dockerfile: Dockerfile
     # container_name: client
-    # ports:
-      # - 9080:5173
+    ports:
+      - 9080:5173
     depends_on:
       nginx:
         condition: service_started

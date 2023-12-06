@@ -1,5 +1,5 @@
 import React  from "react";
-import NavBar from "./assets/components/Navbar/Navbar";
+import NavBar from "./assets/components/NavBar/Navbar";
 import MainPage from "./assets/pages/home_page/main-page";
 import CreateCv from "./assets/pages/cv_page/create-cv";
 import Courses from "./assets/pages/courses_page/courses";
