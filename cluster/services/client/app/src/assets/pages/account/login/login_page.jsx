@@ -3,7 +3,7 @@ import user_icon from './assets/person.png';
 import email_icon from './assets/email.png';
 import password_icon from './assets/password.png';
 import { useState } from 'react';
-import InfoModal from './Popup';
+// import InfoModal from './assets/components/PopUp/Popup'
  
 export default function Login() {
     const [action, setAction] = useState("Zaloguj się");
@@ -145,10 +145,10 @@ export default function Login() {
 
     return (
         <div className='container'>
-            <InfoModal
+            {/* <InfoModal
                 isOpen={isModelOpen}
                 closeModal={closeModel}
-                message="Mail z potwierdzeniem został wysłany na podany adres"></InfoModal>
+                message="Mail z potwierdzeniem został wysłany na podany adres"></InfoModal> */}
             <div className="header">
                 <div className="text">
                     {action}
