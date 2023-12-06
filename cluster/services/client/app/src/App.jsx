@@ -16,7 +16,7 @@ export default function App() {
       <Route path="/cv" element={<CreateCv/>}/>
       <Route path="/courses" element={<Courses/>}/>
       <Route path="/login" element={<Login/>}/>
-    </Routes>
+    </Routes> 
   </>
     
   

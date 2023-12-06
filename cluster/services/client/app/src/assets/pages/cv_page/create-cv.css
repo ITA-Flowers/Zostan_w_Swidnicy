@@ -187,3 +187,8 @@
     background-color: var(--active-color);
     border-radius: 4px;
   }
+  .under-line{
+    background-color: var(--active-color);
+    width: 90%;
+    height: 2px;
+  }

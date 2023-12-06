@@ -1,2 +1,2 @@
 randomscrolbar (intsall npm)
-datapicker (install npm)
+datapicker (install npm) npm install react-datepicker
