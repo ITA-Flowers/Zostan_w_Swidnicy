@@ -1,0 +1,123 @@
+version: '3.8'
+
+services:
+
+# ------------------------------------------------------
+# -- Database - MariaDB
+  maria:
+    image: mariadb:11.1
+    restart: always
+    container_name: maria
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+    volumes:
+      - ./services/db/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./services/db/scripts/populate.sql:/docker-entrypoint-initdb.d/populate.sql
+      - ./services/db/vol:/var/lib/mysql
+    ports:
+      - 9306:3306
+    healthcheck:
+      test: mariadb -u ${MARIADB_USER} -p${MARIADB_PASSWORD} -h maria
+      interval: 20s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+
+# ------------------------------------------------------
+# -- Employee service - Python FastAPI
+  employee:
+    build:
+      context: ./services/employee
+      dockerfile: Dockerfile
+    restart: always
+    container_name: employee
+    environment:
+      MARIADB_SWIDNICA_USER: ${MARIADB_SWIDNICA_USER}
+      MARIADB_SWIDNICA_PASSWORD: ${MARIADB_SWIDNICA_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+    volumes:
+      - ./shared/database:/usr/src/app/database
+      - ./shared/models:/usr/src/app/models
+    ports:
+      - 9030:8080
+    depends_on:
+      maria:
+        condition: service_healthy
+
+# ------------------------------------------------------
+# -- Employer service - Python FastAPI
+  employer:
+    build:
+      context: ./services/employer
+      dockerfile: Dockerfile
+    restart: always
+    container_name: employer
+    environment:
+      MARIADB_SWIDNICA_USER: ${MARIADB_SWIDNICA_USER}
+      MARIADB_SWIDNICA_PASSWORD: ${MARIADB_SWIDNICA_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+    volumes:
+      - ./shared/database:/usr/src/app/database
+      - ./shared/models:/usr/src/app/models
+    ports:
+      - 9020:8080
+    depends_on:
+      maria:
+        condition: service_healthy
+
+# ------------------------------------------------------
+# -- Authentication service - Python FastAPI
+  identity:
+    build:
+      context: ./services/identity
+      dockerfile: Dockerfile
+    restart: always
+    container_name: identity
+    environment:
+      AUTH_ALGHORITHM: ${AUTH_ALGHORITHM}
+      AUTH_SECRET_KEY: ${AUTH_SECRET_KEY}
+      AUTH_ACCESS_TOKEN_EXPIRES_MINUTES: ${AUTH_ACCESS_TOKEN_EXPIRES_MINUTES}
+    volumes:
+      - ./shared/database:/usr/src/app/database
+      - ./shared/models:/usr/src/app/models
+    ports:
+      - 9010:8080
+    depends_on:
+      maria:
+        condition: service_healthy
+
+# ------------------------------------------------------
+# -- Client App - React JS
+  client:
+    build:
+      context: ./services/client
+      dockerfile: Dockerfile
+    # container_name: client
+    # ports:
+      # - 9080:5173
+    depends_on:
+      nginx:
+        condition: service_started
+
+# ------------------------------------------------------
+# -- Load Balancer - NGINX
+  nginx:
+    image: nginx:latest
+    container_name: load-balancer-nginx
+    ports:
+      - 8443:80
+      - 8443:443
+    volumes:
+      - ./services/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./services/nginx/ssl/zostan-w-swidnicy.crt:/etc/nginx/ssl/zostan-w-swidnicy.crt
+      - ./services/nginx/ssl/zostan-w-swidnicy.key:/etc/nginx/ssl/zostan-w-swidnicy.key
+    depends_on:
+      identity:
+        condition: service_started
+      employee:
+        condition: service_started
+      employer:
+        condition: service_started
