@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700&family=Poppins:ital,wght@1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root{
+    --blue--main : #2a68ff;
+    --grey--ish: #f1f4f8;
+    --card--shaow: #f7f8f9;
+    --text--color: #252b36;
+    --background--color : #ffff;
+    --list--color : #2a68ff;
+}
+
+.course-container{
+    background-color: var(--background--color);
+    width: 100%;
+    height: 100vh;
+    display:  flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.course-container input {
+    margin: 20px 0;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .course-container div:hover {
+    transform: scale(1.01);
+  }
+.course-container div {
+  width: 80%;
+  padding: 20px;
+  border: none; /* Usuń obramowanie */
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background-color: var(--grey--ish); /* Dodaj tło */
+}
+  
+
+  
+.job-details {
+    width: 80%;
+    padding: 20px;
+    border: none; /* Usuń obramowanie */
+    border-radius: 10px;
+    animation: slideDown 0.3s ease;
+    background-color: var(--grey--ish); /* Dodaj tło */
+  }
+  
+
+
+.job-details button {
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: var(--blue--main);
+    color: #ffffff; /* Biały */
+    font-weight: bold; /* Pogrubiony */
+    text-align: center; /* Wyśrodkowany tekst */
+    width: 200px; /* Mniejsza szerokość */
+    border-radius: 10px;
+    animation: fadeInOut 2s ease forwards;
+  }
+  
+  @keyframes fadeInOut {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  
+
+
+  @keyframes slideDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
