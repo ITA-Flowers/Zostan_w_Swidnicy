@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 from uuid import UUID
-from typing import Optional
 from datetime import date
 
 from .enums import *
@@ -34,7 +33,7 @@ class Skill(SkillBase):
 # -- User
 class UserBase(BaseModel):
     email           : str
-    phone_number    : Optional[str] = None
+    phone_number    : str | None = None
     is_company      : bool = False
     is_admin        : bool = False
 
@@ -65,12 +64,12 @@ class User(UserBase):
 class CompanyBase(BaseModel):
     nip                 : str
     name                : str
-    description         : Optional[str] = None
-    address             : Optional[str] = None
-    logo_img            : Optional[bytes] = None
+    description         : str | None = None
+    address             : str | None = None
+    logo_img            : bytes | None = None
 
 class CompanyCreate(CompanyBase):
-    user                : User
+    user_uuid           : UUID
 
 class CompanyUpdate(CompanyBase):
     id                  : int
@@ -89,11 +88,11 @@ class CourseBase(BaseModel):
     price               : int
     duration            : int
     places              : int
-    address             : Optional[str] = None
-    description         : Optional[str] = None
-    opportunities       : Optional[str] = None
-    expire_date         : Optional[date] = None
-    img                 : Optional[bytes] = None
+    address             : str | None = None
+    description         : str | None = None
+    opportunities       : str | None = None
+    expire_date         : date | None = None
+    img                 : bytes | None = None
 
 class CourseCreate(CourseBase):
     company             : Company
@@ -118,12 +117,12 @@ class JobBase(BaseModel):
     work_type           : WorkTypeEnum
     position            : str
     address             : str
-    salary_min          : Optional[int] = None
-    salary_max          : Optional[int] = None
+    salary_min          : int | None = None
+    salary_max          : int | None = None
     responsibilities    : str
-    description         : Optional[str] = None
-    expire_date         : Optional[date] = None
-    img                 : Optional[bytes] = None
+    description         : str | None = None
+    expire_date         : date | None = None
+    img                 : bytes | None = None
 
 class JobCreate(JobBase):
     company             : Company
@@ -142,12 +141,12 @@ class Job(JobBase):
 # -----------------------------------------------------------------
 # -- Worker
 class WorkerBase(BaseModel):
-    name                : Optional[str] = None
-    surname             : Optional[str] = None
-    profile_img         : Optional[bytes] = None
+    name                : str | None = None
+    surname             : str | None = None
+    profile_img         : bytes | None = None
 
 class WorkerCreate(WorkerBase):
-    user                : User
+    user_uuid           : UUID
     
 class WorkerUpdate(WorkerBase):
     id                  : int
@@ -229,7 +228,7 @@ class JobApplicant(JobApplicantBase):
 # -- Report
 class ReportBase(BaseModel):
     date_of_birth       : date
-    address             : Optional[str] = None
+    address             : str | None = None
 
 class ReportCreate(ReportBase):
     worker              : Worker
@@ -249,9 +248,9 @@ class Report(ReportBase):
 class ReportEducationBase(BaseModel):
     level               : EducationLevelEnum
     school              : str
-    specialization      : Optional[str] = None
+    specialization      : str | None = None
     begin_date          : date
-    end_date            : Optional[date] = None
+    end_date            : date | None = None
     is_ongoing          : bool
 
 class ReportEducationCreate(ReportEducationBase):
@@ -276,7 +275,7 @@ class ReportExperienceBase(BaseModel):
     contract_type       : ContractTypeEnum
     work_type           : WorkTypeEnum
     begin_date          : date
-    end_date            : Optional[date] = None
+    end_date            : date | None = None
     is_ongoing          : bool
 
 class ReportExperienceCreate(ReportExperienceBase):

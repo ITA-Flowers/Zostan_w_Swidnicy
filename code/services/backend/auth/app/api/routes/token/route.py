@@ -11,3 +11,10 @@ def get_token():
         status_code=status.HTTP_501_NOT_IMPLEMENTED,
         detail="Method not implemented yet!"
     )
+
+@router.post(path='/refresh')
+def refresh_token():
+    raise HTTPException(
+        status_code=status.HTTP_501_NOT_IMPLEMENTED,
+        detail="Method not implemented yet!"
+    )

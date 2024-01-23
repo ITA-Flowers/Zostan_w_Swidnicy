@@ -1,5 +1,5 @@
 # Base image
-FROM python:3.9-slim
+FROM python:3.12-slim
 
 # Disable .pyc file generation
 ENV PYTHONDONTWRITEBYTECODE 1

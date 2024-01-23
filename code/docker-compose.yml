@@ -25,10 +25,10 @@ services:
       - botnet
     healthcheck:
       test: mariadb -u ${MARIADB_USER} -p${MARIADB_PASSWORD} -h maria
-      interval: 20s
+      interval: 10s
       timeout: 5s
       retries: 4
-      start_period: 10s
+      start_period: 5s
   
 # ------------------------------------------------------
 # -- Database - Redis
@@ -92,10 +92,10 @@ services:
       MARIADB_USER: ${MARIADB_USER:?MARIADB_USER must be set!}
       MARIADB_PASSWORD: ${MARIADB_PASSWORD:?MARIADB_PASSWORD must be set!}
       MARIADB_DATABASE: ${MARIADB_DATABASE:-swidnica}
-      API_PORT_IN: ${API_PORT_IN:-8080}
+      API_PORT_IN: ${API_PORT_IN:-8000}
       API_PORT_EX: ${API_PORT_EX:?API_PORT_EX must be set!}
     ports:
-      - ${API_PORT_EX:?API_PORT_EX must be set!}:${API_PORT:-8080}
+      - ${API_PORT_EX:?API_PORT_EX must be set!}:${API_PORT_IN:-8000}
     depends_on:
       auth-service:
         condition: service_started
