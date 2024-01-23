@@ -2,7 +2,8 @@ import os
 
 
 class Settings:
-    def __init__(self, db_dialect : str = "mysql+pymysql") -> None:        
+    def __init__(self, db_dialect : str = "mysql+pymysql") -> None:
+        
         self.db_host = os.getenv("MARIADB_HOST", "maria")
         self.db_port = int(os.getenv("MARIADB_PORT", "3306"))
         self.db_dialect = db_dialect
@@ -15,8 +16,8 @@ class Settings:
             self.database_url = f"{self.db_dialect}://{self._db_user}:{self._db_passwd}@{self.db_host}:{self.db_port}/{self._db_name}"
         
     def __get_db_env_creds(self) -> tuple((str, str, str)):
-        db_user     = os.getenv('MARIADB_SWIDNICA_USER')
-        db_password = os.getenv('MARIADB_SWIDNICA_PASSWORD')
+        db_user     = os.getenv('MARIADB_USER')
+        db_password = os.getenv('MARIADB_PASSWORD')
         db_name     = os.getenv('MARIADB_DATABASE')
 
         if db_user is None or db_password is None or db_name is None:
@@ -26,4 +27,4 @@ class Settings:
         
         
         
-settings = Settings(host="0.0.0.0", port=8080, db_host="maria", db_port=3306, db_dialect="mysql+pymysql")
+settings = Settings()

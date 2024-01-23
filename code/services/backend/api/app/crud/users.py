@@ -3,8 +3,8 @@ from uuid import UUID
 
 # ------------------------------------------------------------------------------------------------
 # -- Models
-from ..models import schemas
-from ..models import tables
+from models import schemas
+from models import tables
 
 # ------------------------------------------------------------------------------------------------
 # -- GET - read by UUID

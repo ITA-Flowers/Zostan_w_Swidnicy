@@ -2,13 +2,17 @@ from sqlalchemy.orm import Session
 
 # ------------------------------------------------------------------------------------------------
 # -- Models
-from ..models import schemas
-from ..models import tables
+from models import schemas
+from models import tables
 
 # ------------------------------------------------------------------------------------------------
 # -- GET - read by ID
 def get_worker(db : Session, worker_id : int):
     return db.query(tables.Worker).filter(tables.Worker.id == worker_id).first()
+
+# -- GET - read by USER
+def get_worker_by_user(db : Session, user: schemas.User):
+    return db.query(tables.Worker).filter(tables.Worker.FK_User_uuid == user.uuid).first()
 
 # ------------------------------------------------------------------------------------------------
 # -- GET - read many

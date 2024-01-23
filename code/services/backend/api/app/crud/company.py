@@ -2,17 +2,25 @@ from sqlalchemy.orm import Session
 
 # ------------------------------------------------------------------------------------------------
 # -- Models
-from ..models import schemas
-from ..models import tables
+from models import schemas
+from models import tables
 
 # ------------------------------------------------------------------------------------------------
 # -- GET - read by ID
 def get_company(db : Session, company_id : int):
     return db.query(tables.Company).filter(tables.Company.id == company_id).first()
 
+# -- GET - read by NIP
+def get_company_by_nip(db : Session, nip : str):
+    return db.query(tables.Company).filter(tables.Company.nip == nip).first()
+
+# -- GET - read by USER
+def get_company_by_user(db : Session, user : schemas.User):
+    return db.query(tables.Company).filter(tables.Company.FK_User_uuid == user.uuid).first()
+
 # ------------------------------------------------------------------------------------------------
 # -- GET - read many
-def get_companys(db : Session, skip : int = 0, limit : int = 100):
+def get_companies(db : Session, skip : int = 0, limit : int = 100):
     return db.query(tables.Company).offset(skip).limit(limit).all()
 
 # ------------------------------------------------------------------------------------------------

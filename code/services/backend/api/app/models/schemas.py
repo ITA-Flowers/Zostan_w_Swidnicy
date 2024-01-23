@@ -1,5 +1,6 @@
 from pydantic import BaseModel
-from uuid import UUID, uuid4
+from uuid import UUID
+from typing import Optional
 from datetime import date
 
 from .enums import *
@@ -22,13 +23,20 @@ class Skill(SkillBase):
     class Config:
         from_attributes = True
 
+        json_schema_extra = {
+            "example" : {
+                "id" : 99,
+                "name" : "Programowanie Python"
+            }
+        }
+
 # -----------------------------------------------------------------
 # -- User
 class UserBase(BaseModel):
     email           : str
-    phone_number    : str | None = None
-    is_company      : bool
-    is_admin        : bool
+    phone_number    : Optional[str] = None
+    is_company      : bool = False
+    is_admin        : bool = False
 
 class UserCreate(UserBase):
     password        : str
@@ -42,14 +50,24 @@ class User(UserBase):
     class Config:
         from_attributes = True
 
+        json_schema_extra = {
+            "example" : {
+                "uuid" : "568ade48-b9cf-12ee-9df0-0232ac130002",
+                "email" : "adam.abacki@gmail.com",
+                "phone_number" : "772546887",
+                "is_company" : False,
+                "is_admin" : False
+            }
+        }
+
 # -----------------------------------------------------------------
 # -- Company
 class CompanyBase(BaseModel):
     nip                 : str
     name                : str
-    description         : str | None = None
-    address             : str | None = None
-    logo_img            : bytes | None = None
+    description         : Optional[str] = None
+    address             : Optional[str] = None
+    logo_img            : Optional[bytes] = None
 
 class CompanyCreate(CompanyBase):
     user                : User
@@ -71,11 +89,11 @@ class CourseBase(BaseModel):
     price               : int
     duration            : int
     places              : int
-    address             : str | None = None
-    description         : str | None = None
-    opportunities       : str | None = None
-    expire_date         : date | None = None
-    img                 : bytes | None = None
+    address             : Optional[str] = None
+    description         : Optional[str] = None
+    opportunities       : Optional[str] = None
+    expire_date         : Optional[date] = None
+    img                 : Optional[bytes] = None
 
 class CourseCreate(CourseBase):
     company             : Company
@@ -100,12 +118,12 @@ class JobBase(BaseModel):
     work_type           : WorkTypeEnum
     position            : str
     address             : str
-    salary_min          : int | None = None
-    salary_max          : int | None = None
+    salary_min          : Optional[int] = None
+    salary_max          : Optional[int] = None
     responsibilities    : str
-    description         : str | None = None
-    expire_date         : date | None = None
-    img                 : bytes | None = None
+    description         : Optional[str] = None
+    expire_date         : Optional[date] = None
+    img                 : Optional[bytes] = None
 
 class JobCreate(JobBase):
     company             : Company
@@ -124,9 +142,9 @@ class Job(JobBase):
 # -----------------------------------------------------------------
 # -- Worker
 class WorkerBase(BaseModel):
-    name                : str | None = None
-    surname             : str | None = None
-    profile_img         : bytes | None = None
+    name                : Optional[str] = None
+    surname             : Optional[str] = None
+    profile_img         : Optional[bytes] = None
 
 class WorkerCreate(WorkerBase):
     user                : User
@@ -211,7 +229,7 @@ class JobApplicant(JobApplicantBase):
 # -- Report
 class ReportBase(BaseModel):
     date_of_birth       : date
-    address             : str | None = None
+    address             : Optional[str] = None
 
 class ReportCreate(ReportBase):
     worker              : Worker
@@ -231,9 +249,9 @@ class Report(ReportBase):
 class ReportEducationBase(BaseModel):
     level               : EducationLevelEnum
     school              : str
-    specialization      : str | None = None
+    specialization      : Optional[str] = None
     begin_date          : date
-    end_date            : date | None = None
+    end_date            : Optional[date] = None
     is_ongoing          : bool
 
 class ReportEducationCreate(ReportEducationBase):
@@ -258,7 +276,7 @@ class ReportExperienceBase(BaseModel):
     contract_type       : ContractTypeEnum
     work_type           : WorkTypeEnum
     begin_date          : date
-    end_date            : date | None = None
+    end_date            : Optional[date] = None
     is_ongoing          : bool
 
 class ReportExperienceCreate(ReportExperienceBase):
