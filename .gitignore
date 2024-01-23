@@ -17,14 +17,15 @@
 # Pamięć cache modułów Python
 **/__pycache__/
 
+# Zmienne środowiskowe Docker'a
+**/.env
+
 # Pamięć bazy danych
-**/db/vol
+**/maria/data/*
+**/redis/data/*
 
 # Sesje SQL
 **/*.session.sql
 
 # Stare pliki
 **/.old
-
-# Projekt bazy danych DataGrip
-**/dg_proj

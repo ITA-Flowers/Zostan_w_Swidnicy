@@ -1,0 +1,129 @@
+version: '3.8'
+
+name: swidnica
+
+services:
+
+# ------------------------------------------------------
+# -- Database - MariaDB
+  mariadb-service:
+    image: mariadb:11.1
+    container_name: maria
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:?MARIADB_ROOT_PASSWORD must be set!}
+      MARIADB_USER: ${MARIADB_USER:?MARIADB_USER must be set!}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD:?MARIADB_PASSWORD must be set!}
+      MARIADB_DATABASE: ${MARIADB_DATABASE:-swidnica}
+    volumes:
+      - ./services/db/maria/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./services/db/maria/scripts/populate.sql:/docker-entrypoint-initdb.d/populate.sql
+      - ./services/db/maria/data:/var/lib/mysql
+    ports:
+      - ${MARIADB_PORT_EX:?MARIADB_PORT_EX must be set!}:3306
+    networks:
+      - botnet
+    healthcheck:
+      test: mariadb -u ${MARIADB_USER} -p${MARIADB_PASSWORD} -h maria
+      interval: 20s
+      timeout: 5s
+      retries: 4
+      start_period: 10s
+  
+# ------------------------------------------------------
+# -- Database - Redis
+  redis-service:
+    image: redis:7.2.4
+    container_name: redis
+    restart: always
+    ports:
+      - 36379:6379
+    volumes:
+      - ./services/db/redis/data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+    depends_on:
+      mariadb-service:
+        condition: service_healthy
+    networks:
+      - botnet
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 4
+      start_period: 5s
+
+# ------------------------------------------------------
+# -- Backend - Auth
+  auth-service:
+    container_name: auth
+    build:
+      context: ./services/backend/auth
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      AUTH_ALGHORITHM: ${AUTH_ALGHORITHM:-HSA512}
+      AUTH_SECRET_KEY: ${AUTH_SECRET_KEY:?AUTH_SECRET_KEY must be set!}
+      AUTH_ACCESS_TOKEN_EXPIRES_MINUTES: ${AUTH_ACCESS_TOKEN_EXPIRES_MINUTES:-30}
+      AUTH_PORT_IN: ${AUTH_PORT_IN:-8080}
+      AUTH_PORT_EX: ${AUTH_PORT_EX:?AUTH_PORT_EX must be set!}
+      REDIS_PORT: ${REDIS_PORT:-6379}
+    ports:
+      - ${AUTH_PORT_EX:?AUTH_PORT_EX must be set!}:${AUTH_PORT_IN:-8080}
+    depends_on:
+      redis-service:
+        condition: service_healthy
+      mariadb-service:
+        condition: service_healthy
+    networks:
+      - botnet
+
+# ------------------------------------------------------
+# -- Backend - API Gateway
+  api-service:
+    container_name: api
+    build:
+      context: ./services/backend/api
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      MARIADB_HOST: ${MARIADB_HOST:-maria}
+      MARIADB_PORT: ${MARIADB_PORT:-3306}
+      MARIADB_USER: ${MARIADB_USER:?MARIADB_USER must be set!}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD:?MARIADB_PASSWORD must be set!}
+      MARIADB_DATABASE: ${MARIADB_DATABASE:-swidnica}
+      API_PORT_IN: ${API_PORT_IN:-8080}
+      API_PORT_EX: ${API_PORT_EX:?API_PORT_EX must be set!}
+    ports:
+      - ${API_PORT_EX:?API_PORT_EX must be set!}:${API_PORT:-8080}
+    depends_on:
+      auth-service:
+        condition: service_started
+    networks:
+      - botnet
+
+# ------------------------------------------------------
+# -- Frontend - Client
+  client-service:
+    container_name: client
+    build:
+      context: ./services/frontend/client
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      API_PORT_EX: ${API_PORT_EX:?API_PORT_EX must be set!}
+      CLIENT_PORT_IN: ${CLIENT_PORT_IN:-5173}
+      CLIENT_PORT_EX: ${CLIENT_PORT_EX:?CLIENT_PORT_EX must be set!}
+    ports:
+      - ${CLIENT_PORT_EX:?CLIENT_PORT_EX must be set!}:${CLIENT_PORT_IN:-5173}
+    depends_on:
+      api-service:
+        condition: service_started
+    networks:
+      - botnet
+
+# ------------------------------------------------------
+# Networks
+networks:
+  botnet:
+    driver: bridge
